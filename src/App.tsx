@@ -1,24 +1,16 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import type {Task, FilterStatus} from "./types/task.types.ts"
 import AddTask from "./components/AddTask/AddTask.tsx";
 import TaskList from "./components/TaskList/TaskList.tsx";
 import TaskFilter from "./components/TaskFilter/TaskFilter.tsx";
 import { Container, Typography } from '@mui/material';
+import { useLocalStorage } from "./hooks/useLocalStorage.ts";
 
 
 const App = () => {
 
-    const [task, setTask] = useState<Task[]>(() => {
-        const savedData = localStorage.getItem('tasks')
-        return savedData ? (JSON.parse(savedData) as Task[]) :  []
-    });
+    const [task, setTask] = useLocalStorage<Task[]>('tasks', [])
     const [filter, setFilter] = useState<FilterStatus>('ALL');
-
-
-
-    useEffect(() => {
-        localStorage.setItem('tasks', JSON.stringify(task));
-    }, [task])
 
     const addTask = (title: string) => {
         setTask(prev => [...prev, {

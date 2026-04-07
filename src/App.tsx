@@ -6,7 +6,7 @@ import TaskFilter from "./components/TaskFilter/TaskFilter.tsx";
 import { Container, Typography } from '@mui/material';
 import { useLocalStorage } from "./hooks/useLocalStorage.ts";
 import { useTheme } from "./context/useTheme.ts";
-import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider as MuiThemeProvider, CssBaseline, Button } from "@mui/material";
 
 
 
@@ -57,12 +57,13 @@ const App = () => {
 
     return (
         <MuiThemeProvider theme={muiTheme}>
+            <CssBaseline/>
             <Container maxWidth="sm">
                 <Typography variant="h3" align="center" gutterBottom>
                     Todo App
                 </Typography>
-                <button onClick={() => toggleTheme()}>Сменить тему</button>
-                <span>Текущая тема: {theme}</span>
+                <Button onClick={() => toggleTheme()}>Сменить тему</Button>
+                <span>Текущая тема: {theme.toUpperCase()}</span>
                 <AddTask onAdd={addTask} />
                 <TaskList tasks={filteredTasks} onDelete={deleteTask} onToggle={toggleTask} onEdit={editTask}/>
                 <TaskFilter currentFilter={filter} onFilterChange={setFilter} />

@@ -5,12 +5,18 @@ import TaskList from "./components/TaskList/TaskList.tsx";
 import TaskFilter from "./components/TaskFilter/TaskFilter.tsx";
 import { Container, Typography } from '@mui/material';
 import { useLocalStorage } from "./hooks/useLocalStorage.ts";
+import { useTheme } from "./context/useTheme.ts";
 
 
 const App = () => {
 
     const [task, setTask] = useLocalStorage<Task[]>('tasks', [])
     const [filter, setFilter] = useState<FilterStatus>('ALL');
+
+    const {
+        theme,
+        toggleTheme,
+    } = useTheme();
 
     const addTask = (title: string) => {
         setTask(prev => [...prev, {
@@ -49,6 +55,8 @@ const App = () => {
             <Typography variant="h3" align="center" gutterBottom>
                 Todo App
             </Typography>
+            <button onClick={() => toggleTheme()}>Сменить тему</button>
+            <span>Текущая тема: {theme}</span>
             <AddTask onAdd={addTask} />
             <TaskList tasks={filteredTasks} onDelete={deleteTask} onToggle={toggleTask} onEdit={editTask}/>
             <TaskFilter currentFilter={filter} onFilterChange={setFilter} />

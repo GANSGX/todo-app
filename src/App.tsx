@@ -24,13 +24,15 @@ const App = () => {
     const muiTheme = createTheme({ palette: { mode: theme as 'light' | 'dark' } });
 
     const addTask = (title: string) => {
-        setTask(prev => [...prev, {
-            id: Date.now(),
-            title: title,
-            isDone: false,
-            createdAt: new Date(),
-            priority: 'low',
-        }])
+        if (title.trim().length > 1) {
+            setTask(prev => [...prev, {
+                id: Date.now(),
+                title: title,
+                isDone: false,
+                createdAt: new Date(),
+                priority: 'low',
+            }])
+        }
     }
 
     const deleteTask = (id: number) => {

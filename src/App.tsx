@@ -32,6 +32,12 @@ const App = () => {
         )))
     }
 
+    const editTask = (id: number, title: string) => {
+        setTask(prev => prev.map((task) => (
+            task.id === id ? { ...task, title: title } : task
+        )))
+    }
+
     const filteredTasks = task.filter((task) => {
         if (filter === 'ACTIVE') return !task.isDone
         if (filter === 'COMPLETED') return task.isDone
@@ -44,7 +50,7 @@ const App = () => {
                 Todo App
             </Typography>
             <AddTask onAdd={addTask} />
-            <TaskList tasks={filteredTasks} onDelete={deleteTask} onToggle={toggleTask} />
+            <TaskList tasks={filteredTasks} onDelete={deleteTask} onToggle={toggleTask} onEdit={editTask}/>
             <TaskFilter currentFilter={filter} onFilterChange={setFilter} />
         </Container>
     )
